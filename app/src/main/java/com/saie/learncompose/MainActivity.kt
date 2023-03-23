@@ -51,13 +51,17 @@ fun MessageCard(msg: Message) {
         Column {
             Text(
                 text = msg.author,
-                color = MaterialTheme.colors.secondaryVariant
+                color = MaterialTheme.colors.secondaryVariant,
+                style = MaterialTheme.typography.subtitle2
             )
 
             // Add a vertical space between the author and the message
             Spacer(modifier = Modifier.height(4.dp))
 
-            Text(text = msg.body)
+            Text(
+                text = msg.body,
+                style = MaterialTheme.typography.body2
+            )
         }
     }
 
