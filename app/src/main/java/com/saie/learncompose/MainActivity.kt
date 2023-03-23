@@ -4,6 +4,8 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -64,6 +66,11 @@ fun MessageCard(msg: Message) {
             mutableStateOf(false)
         }
 
+        // Surface color will updated gradually from one color to the other
+        val surfaceColor by animateColorAsState(
+            if (isExpanded) MaterialTheme.colors.primary else MaterialTheme.colors.surface
+        )
+
         // Add a horizontal space between the image and the column
         Spacer(modifier = Modifier.width(8.dp))
 
@@ -78,9 +85,11 @@ fun MessageCard(msg: Message) {
             // Add a vertical space between the author and the message
             Spacer(modifier = Modifier.height(4.dp))
 
-            androidx.compose.material.Surface(
+            Surface(
                 shape = MaterialTheme.shapes.medium,
-                elevation = 1.dp
+                elevation = 1.dp,
+                color = surfaceColor,
+                modifier = Modifier.animateContentSize().padding(1.dp)
             ) {
                 Text(
                     text = msg.body,
