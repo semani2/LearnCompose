@@ -1,5 +1,6 @@
 package com.saie.learncompose
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -58,16 +59,27 @@ fun MessageCard(msg: Message) {
             // Add a vertical space between the author and the message
             Spacer(modifier = Modifier.height(4.dp))
 
-            Text(
-                text = msg.body,
-                style = MaterialTheme.typography.body2
-            )
+            androidx.compose.material.Surface(
+                shape = MaterialTheme.shapes.medium,
+                elevation = 1.dp
+            ) {
+                Text(
+                    text = msg.body,
+                    modifier = Modifier.padding(all = 4.dp),
+                    style = MaterialTheme.typography.body2
+                )
+            }
         }
     }
 
 }
 
-@Preview
+@Preview(name = "Light mode")
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    name = "Dark mode"
+)
 @Composable
 fun PreviewMessageCard() {
     LearnComposeTheme {
