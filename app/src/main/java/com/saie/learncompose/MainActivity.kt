@@ -7,6 +7,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -25,9 +27,19 @@ class MainActivity : ComponentActivity() {
         setContent {
             LearnComposeTheme {
                 androidx.compose.material.Surface(modifier = Modifier.fillMaxSize()) {
-                    MessageCard(Message("Android", "Jetpack Compose"))
+                    //MessageCard(Message("Android", "Jetpack Compose"))
+                    Conversation(messages = SampleData.conversationSample)
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun Conversation(messages: List<Message>) {
+    LazyColumn {
+        items(messages) { message ->
+            MessageCard(message)
         }
     }
 }
@@ -86,5 +98,13 @@ fun PreviewMessageCard() {
         androidx.compose.material.Surface(modifier = Modifier.fillMaxSize()) {
             MessageCard(msg = Message("Colleague", "Hey, take a look at Jetpack Compose"))
         }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewConversation() {
+    LearnComposeTheme {
+        Conversation(messages = SampleData.conversationSample)
     }
 }
