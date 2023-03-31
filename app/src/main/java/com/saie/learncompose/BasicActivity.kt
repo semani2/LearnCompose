@@ -7,11 +7,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -41,8 +42,12 @@ private fun MyApp(modifier: Modifier = Modifier,
 @Composable
 fun Greeting(name: String) {
     //Text(text = "Hello $name!", modifier = Modifier.padding(24.dp))
+    val expanded = remember {
+        mutableStateOf(false)
+    }
+
     Surface(
-        color = MaterialTheme.colors.primary,
+        color = androidx.compose.material3.MaterialTheme.colorScheme.primary,
         modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
     ) {
         Row(modifier = Modifier.padding(24.dp)) {
@@ -51,8 +56,8 @@ fun Greeting(name: String) {
                 Text(text = name)
             }
 
-            ElevatedButton(onClick = {}) {
-                Text(text = "Show More")
+            ElevatedButton(onClick = { expanded.value = !expanded.value }) {
+                Text(if (expanded.value) "Show less" else "Show more")
             }
         }
     }
