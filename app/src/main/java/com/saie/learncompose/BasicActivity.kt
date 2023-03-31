@@ -11,6 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,6 +25,22 @@ class BasicActivity : ComponentActivity() {
             LearnComposeTheme {
                 MyApp(modifier = Modifier.fillMaxSize())
             }
+        }
+    }
+}
+
+@Composable
+private fun MyApp(modifier: Modifier = Modifier) {
+
+    var shouldShowOnboarding by rememberSaveable {
+        mutableStateOf(true)
+    }
+
+    Surface(modifier) {
+        if (shouldShowOnboarding) {
+            OnboardingScreen(onContinueClicked = { shouldShowOnboarding = false })
+        } else {
+            Greetings()
         }
     }
 }
@@ -43,30 +60,6 @@ fun OnboardingScreen(onContinueClicked: () -> Unit,
             onClick = onContinueClicked
         ) {
             Text("Continue")
-        }
-    }
-}
-
-@Preview(showBackground = true, widthDp = 320, heightDp = 320)
-@Composable
-fun OnboardingPreview() {
-    LearnComposeTheme() {
-        OnboardingScreen(onContinueClicked = {})
-    }
-}
-
-@Composable
-private fun MyApp(modifier: Modifier = Modifier) {
-
-    var shouldShowOnboarding by remember {
-        mutableStateOf(true)
-    }
-
-    Surface(modifier) {
-        if (shouldShowOnboarding) {
-            OnboardingScreen(onContinueClicked = { shouldShowOnboarding = false })
-        } else {
-            Greetings()
         }
     }
 }
@@ -118,5 +111,13 @@ fun Greeting(name: String) {
 fun DefaultPreview() {
     LearnComposeTheme {
         MyApp(Modifier.fillMaxSize())
+    }
+}
+
+@Preview(showBackground = true, widthDp = 320, heightDp = 320)
+@Composable
+fun OnboardingPreview() {
+    LearnComposeTheme() {
+        OnboardingScreen(onContinueClicked = {})
     }
 }
