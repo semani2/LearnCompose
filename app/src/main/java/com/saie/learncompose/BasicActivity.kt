@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.saie.learncompose.ui.theme.LearnComposeTheme
+import kotlin.math.exp
 
 class BasicActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,12 +47,17 @@ fun Greeting(name: String) {
         mutableStateOf(false)
     }
 
+    val extraPadding = if (expanded.value) 48.dp else 0.dp
+
     Surface(
         color = androidx.compose.material3.MaterialTheme.colorScheme.primary,
         modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
     ) {
         Row(modifier = Modifier.padding(24.dp)) {
-            Column(modifier = Modifier.weight(1f)) {
+            Column(
+                modifier = Modifier.weight(1f)
+                    .padding(bottom = extraPadding)
+            ) {
                 Text(text = "Hello,")
                 Text(text = name)
             }
