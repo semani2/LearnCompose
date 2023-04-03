@@ -26,6 +26,12 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.LearnCompose">
+        </activity>
+
+        <activity android:name=".WellnessActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.LearnCompose">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
