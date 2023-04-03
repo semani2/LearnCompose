@@ -35,10 +35,15 @@ class WellnessActivity: ComponentActivity() {
 
 @Composable
 fun WellnessScreen(modifier: Modifier = Modifier) {
-    StatefulCounter(modifier)
+    Column(modifier = modifier) {
+        StatefulCounter(modifier)
+
+        val list = remember { getWellnessTasks().toMutableStateList() }
+        WellnessTasksList(list = list, onCloseTask = { task -> list.remove(task) })
+    }
 }
 
-@Composable
+/*@Composable
 fun WaterCounter(modifier: Modifier = Modifier) {
     Column(modifier = Modifier.padding(16.dp)) {
         var count by rememberSaveable { mutableStateOf(0) }
@@ -72,7 +77,7 @@ fun WaterCounter(modifier: Modifier = Modifier) {
 
         }
     }
-}
+}*/
 
 @Composable
 fun StatelessCounter(count: Int, onIncrement: () -> Unit, modifier: Modifier = Modifier) {
@@ -91,3 +96,5 @@ fun StatefulCounter(modifier: Modifier = Modifier) {
     var count by rememberSaveable { mutableStateOf(0) }
     StatelessCounter(count, { count++ }, modifier)
 }
+
+private fun getWellnessTasks() = List(30) {i -> WellnessTask(i, "Task # $i")}
